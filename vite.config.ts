@@ -5,7 +5,9 @@ import {defineConfig, loadEnv} from 'vite';
 
 export default defineConfig(({mode}) => {
   const env = loadEnv(mode, '.', '');
-  const base = mode === 'production' ? '/Portfolio/' : '/';
+  const repoFromCi = process.env.GITHUB_REPOSITORY?.split('/')[1];
+  const repoName = env.VITE_REPO_NAME || repoFromCi || 'Portfolio-ML-Game';
+  const base = mode === 'production' ? `/${repoName}/` : '/';
 
   return {
     base,
